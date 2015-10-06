@@ -50,7 +50,7 @@ write [0x82 0x04 0xEF 0x83 0xBF 0x4E]
 
 read notify HANDSHAKE_COMPLETE
 
-read await TICK_ONE
+read await TICK_TWO
 
 # Client should timeout and close the connection - this doesn't happen
 
