@@ -39,7 +39,7 @@
             <plugin>
                 <groupId>org.kaazing</groupId>
                 <artifactId>k3po-maven-plugin</artifactId>
-                <version>${project.version}</version>
+                <version>3.0.0-alpha-1</version>
                 <configuration>
                     <skipTests>${skipITs}</skipTests>
                 </configuration>
