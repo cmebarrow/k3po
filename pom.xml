@@ -24,6 +24,7 @@
     </scm>
 
     <modules>
+<!--
         <module>lang</module>
         <module>driver</module>
         <module>k3po-maven-plugin</module>
@@ -33,8 +34,10 @@
         <module>examples</module>
         <module>k3po.pcap.converter</module>
         <module>specification/amqp_1_0.jms</module>
+-->
         <module>specification/bbosh</module>
         <module>specification/http</module>
+<!--
         <module>specification/httpx</module>
         <module>specification/http2</module>
         <module>specification/httpxe</module>
@@ -48,6 +51,7 @@
         <module>specification/wse</module>
         <module>specification/ws.extensions/x-kaazing-idle-timeout</module>
         <module>specification/ws.extensions/x-kaazing-ping-pong</module>
+-->
     </modules>
 
     <properties>

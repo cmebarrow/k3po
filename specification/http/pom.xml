@@ -26,12 +26,12 @@
             <!-- Needed for EL only, not AST -->
             <groupId>org.kaazing</groupId>
             <artifactId>k3po.lang</artifactId>
-            <version>${project.version}</version>
+            <version>3.0.0-alpha-1</version>
         </dependency>
         <dependency>
             <groupId>org.kaazing</groupId>
             <artifactId>k3po.junit</artifactId>
-            <version>${project.version}</version>
+            <version>3.0.0-alpha-1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
