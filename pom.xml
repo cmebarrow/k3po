@@ -24,13 +24,13 @@
     </scm>
 
     <modules>
-<!--
         <module>lang</module>
         <module>driver</module>
         <module>k3po-maven-plugin</module>
         <module>control</module>
         <module>launcher</module>
         <module>junit</module>
+<!--
         <module>examples</module>
         <module>k3po.pcap.converter</module>
         <module>specification/amqp_1_0.jms</module>
