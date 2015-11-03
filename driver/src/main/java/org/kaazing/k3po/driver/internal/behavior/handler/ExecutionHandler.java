@@ -31,14 +31,13 @@ import org.jboss.netty.channel.LifeCycleAwareChannelHandler;
 import org.jboss.netty.logging.InternalLogger;
 import org.jboss.netty.logging.InternalLoggerFactory;
 import org.kaazing.k3po.driver.internal.behavior.ScriptProgressException;
-import org.kaazing.k3po.driver.internal.behavior.handler.barrier.AwaitBarrierDownstreamHandler;
 import org.kaazing.k3po.driver.internal.behavior.handler.prepare.PreparationEvent;
 import org.kaazing.k3po.driver.internal.behavior.handler.prepare.SimplePrepareUpstreamHandler;
 import org.kaazing.k3po.lang.internal.RegionInfo;
 
 public class ExecutionHandler extends SimplePrepareUpstreamHandler implements LifeCycleAwareChannelHandler {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(AwaitBarrierDownstreamHandler.class);
+    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(ExecutionHandler.class);
 
     private ChannelFuture handlerFuture;
     private ChannelFuture pipelineFuture;

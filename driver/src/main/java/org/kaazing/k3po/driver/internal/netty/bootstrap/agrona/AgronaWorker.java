@@ -93,7 +93,7 @@ public final class AgronaWorker implements Runnable {
             int workCount = 0;
 
             workCount += executeTasks();
-            workCount += readMessges();
+            workCount += readMessages();
 
             idleStrategy.idle(workCount);
         }
@@ -124,7 +124,7 @@ public final class AgronaWorker implements Runnable {
         return workCount;
     }
 
-    private int readMessges() {
+    private int readMessages() {
         int workCount = 0;
 
         for (final AgronaChannel channel : readableChannels) {
