@@ -145,14 +145,24 @@ public final class TcpBootstrapFactorySpi extends BootstrapFactorySpi implements
             Executor bossExecutor = executorServiceFactory.newExecutorService("boss.server");
             NioServerBossPool bossPool = new NioServerBossPool(bossExecutor, 1);
             Executor workerExecutor = executorServiceFactory.newExecutorService("worker.server");
-            NioWorkerPool workerPool = new NioWorkerPool(workerExecutor, 1);
+            NioWorkerPool workerPool = new NioWorkerPool(workerExecutor, 1) {
+
+                @Override
+                @Deprecated
+                protected NioWorker createWorker(Executor executor) {
+                    NioWorker worker = super.createWorker(executor);
+                    FutureTask<NioWorker> future = new FutureTask<NioWorker>(new SetCurrentWorkerTask(worker));
+                    worker.executeInIoThread(future, /*alwaysAsync*/ true);
+                    return worker;
+                }
+            };
             serverChannelFactory = new NioServerSocketChannelFactory(bossPool, workerPool);
 
             // unshared
             channelFactories.add(serverChannelFactory);
         }
 
-        return new ServerBootstrap(serverChannelFactory) {
+        return new TcpServerBootstrap(serverChannelFactory) {
 
             @Override
             public ChannelFuture bindAsync(SocketAddress localAddress) {

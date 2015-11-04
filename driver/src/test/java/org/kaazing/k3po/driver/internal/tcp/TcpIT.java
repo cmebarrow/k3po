@@ -41,16 +41,23 @@ public class TcpIT {
     @Rule
     public final TestRule chain = outerRule(k3po).around(timeout);
 
-    @TestSpecification("client.close.closed")
-    @Test
-    public void closeVsDisconnectedIssueClient() throws Exception {
+    @TestSpecification("client.close.notify.closed")
+    @Test // Test case for k2po#222
+    public void clientCloseNotifyClosed() throws Exception {
         k3po.finish();
     }
 
-    @TestSpecification("server.close.closed")
-    @Test
-    @Ignore("k2po#222")
-    public void closeVsDisconnectedIssueServer() throws Exception {
+    @TestSpecification("server.close.notify.closed")
+    @Test // Test case for k2po#222
+    public void serverCloseNotifyClosed() throws Exception {
+        k3po.finish();
+    }
+
+
+    @TestSpecification("server.write.flush.closed")
+    @Test // Test case for k3po#128
+    @Ignore("k3po#128")
+    public void serverWriteFlushClosed() throws Exception {
         k3po.finish();
     }
 }

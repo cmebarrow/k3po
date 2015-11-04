@@ -26,11 +26,11 @@ import org.jboss.netty.channel.socket.ChannelRunnableWrapper;
 import org.jboss.netty.channel.socket.nio.NioWorker;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.ChannelPipelineDecorator;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.ChannelSinkDecorator;
-import org.kaazing.k3po.driver.internal.netty.bootstrap.ClientBootstrap;
+import org.kaazing.k3po.driver.internal.netty.bootstrap.ServerBootstrap;
 
-public class TcpClientBootstrap extends ClientBootstrap {
+public class TcpServerBootstrap extends ServerBootstrap {
 
-    public TcpClientBootstrap(ChannelFactory channelFactory) {
+    public TcpServerBootstrap(ChannelFactory channelFactory) {
         super(channelFactory);
     }
 
@@ -46,6 +46,7 @@ public class TcpClientBootstrap extends ClientBootstrap {
                     @Override
                     public void attach(Channel channel, ChannelSink sink) {
                         super.attach(channel, new ChannelSinkDecorator(sink) {
+
                             //TODO: override eventSunk to fix k3po#128 (fulfill the future if it's a DownstreamFlushEvent )
 
                             @Override
@@ -67,4 +68,5 @@ public class TcpClientBootstrap extends ClientBootstrap {
 
         };
     }
+
 }

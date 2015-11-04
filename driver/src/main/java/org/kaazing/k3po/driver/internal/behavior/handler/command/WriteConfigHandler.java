@@ -35,6 +35,7 @@ public class WriteConfigHandler extends AbstractCommandHandler {
     }
 
     public WriteConfigHandler(List<ConfigEncoder> encoders) {
+        super(true);
         requireNonNull(encoders, "encoders");
         if (encoders.size() == 0) {
             throw new IllegalArgumentException("must have at least one encoder");
