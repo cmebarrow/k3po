@@ -6,7 +6,6 @@ connected
 write "Request"
 
 read "Response"
-read "Response2"
 
 close
 closed
