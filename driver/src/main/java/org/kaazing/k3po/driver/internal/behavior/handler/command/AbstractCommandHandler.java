@@ -16,15 +16,30 @@
 
 package org.kaazing.k3po.driver.internal.behavior.handler.command;
 
+import static java.lang.String.format;
+
 import org.jboss.netty.channel.ChannelDownstreamHandler;
 import org.jboss.netty.channel.ChannelEvent;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelFutureListener;
 import org.jboss.netty.channel.ChannelHandlerContext;
+import org.jboss.netty.channel.ChannelPipeline;
+import org.jboss.netty.logging.InternalLogger;
+import org.jboss.netty.logging.InternalLoggerFactory;
 import org.kaazing.k3po.driver.internal.behavior.handler.ExecutionHandler;
 import org.kaazing.k3po.driver.internal.behavior.handler.prepare.PreparationEvent;
 
 public abstract class AbstractCommandHandler extends ExecutionHandler implements ChannelDownstreamHandler {
+    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(AbstractCommandHandler.class);
+    private boolean synchronous;
+
+    AbstractCommandHandler() {
+        this(false);
+    }
+
+    AbstractCommandHandler(boolean synchronous) {
+        this.synchronous = synchronous;
+    }
 
     @Override
     public void handleDownstream(ChannelHandlerContext ctx, ChannelEvent evt) throws Exception {
@@ -45,7 +60,7 @@ public abstract class AbstractCommandHandler extends ExecutionHandler implements
             public void operationComplete(ChannelFuture future) throws Exception {
                 if (future.isSuccess()) {
                     synchronized (ctx) {
-                        invokeCommand(ctx);
+                        invokeCommand(future, ctx);
                     }
                 }
             }
@@ -53,5 +68,27 @@ public abstract class AbstractCommandHandler extends ExecutionHandler implements
         });
     }
 
-    protected abstract void invokeCommand(ChannelHandlerContext ctx) throws Exception;
+    protected abstract void invokeCommand0(ChannelHandlerContext ctx) throws Exception;
+
+    private void invokeCommand(ChannelFuture future, final ChannelHandlerContext ctx) throws Exception {
+        if (synchronous) {
+            invokeCommand0(ctx);
+            return;
+        }
+        ChannelPipeline pipeline = future.getChannel().getPipeline();
+        pipeline.getSink().execute(pipeline, new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    invokeCommand0(ctx);
+                } catch (Exception e) {
+                    LOGGER.error(format("Caught exception %s while executing command %s", e, AbstractCommandHandler.this), e);
+                }
+
+            }
+
+        });
+    }
+
 }

@@ -45,7 +45,7 @@ public class WriteHandler extends AbstractCommandHandler {
     }
 
     @Override
-    protected void invokeCommand(ChannelHandlerContext ctx) throws Exception {
+    protected void invokeCommand0(ChannelHandlerContext ctx) throws Exception {
         ChannelBuffer[] buffers = new ChannelBuffer[encoders.size()];
         int idx = 0;
         for (MessageEncoder encoder : encoders) {

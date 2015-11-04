@@ -20,8 +20,10 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.net.URI;
 import java.util.Collection;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.Executor;
+import java.util.concurrent.FutureTask;
 
 import javax.annotation.Resource;
 
@@ -33,6 +35,7 @@ import org.jboss.netty.channel.socket.nio.NioClientBossPool;
 import org.jboss.netty.channel.socket.nio.NioClientSocketChannelFactory;
 import org.jboss.netty.channel.socket.nio.NioServerBossPool;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
+import org.jboss.netty.channel.socket.nio.NioWorker;
 import org.jboss.netty.channel.socket.nio.NioWorkerPool;
 import org.jboss.netty.util.ExternalResourceReleasable;
 import org.kaazing.k3po.driver.internal.executor.ExecutorServiceFactory;
@@ -42,6 +45,7 @@ import org.kaazing.k3po.driver.internal.netty.bootstrap.ServerBootstrap;
 import org.kaazing.k3po.driver.internal.netty.channel.ChannelAddress;
 
 public final class TcpBootstrapFactorySpi extends BootstrapFactorySpi implements ExternalResourceReleasable {
+    static final ThreadLocal<NioWorker> CURRENT_WORKER = new ThreadLocal<NioWorker>();
 
     private final Collection<ChannelFactory> channelFactories;
     private ExecutorServiceFactory executorServiceFactory;
@@ -101,14 +105,24 @@ public final class TcpBootstrapFactorySpi extends BootstrapFactorySpi implements
             Executor bossExecutor = executorServiceFactory.newExecutorService("boss.client");
             NioClientBossPool bossPool = new NioClientBossPool(bossExecutor, 1);
             Executor workerExecutor = executorServiceFactory.newExecutorService("worker.client");
-            NioWorkerPool workerPool = new NioWorkerPool(workerExecutor, 1);
+            NioWorkerPool workerPool = new NioWorkerPool(workerExecutor, 1) {
+
+                @Override
+                @Deprecated
+                protected NioWorker createWorker(Executor executor) {
+                    NioWorker worker = super.createWorker(executor);
+                    FutureTask<NioWorker> future = new FutureTask<NioWorker>(new SetCurrentWorkerTask(worker));
+                    worker.executeInIoThread(future, /*alwaysAsync*/ true);
+                    return worker;
+                }
+            };
             clientChannelFactory = new NioClientSocketChannelFactory(bossPool, workerPool);
 
             // unshared
             channelFactories.add(clientChannelFactory);
         }
 
-        return new ClientBootstrap(clientChannelFactory) {
+        ClientBootstrap bootstrap = new TcpClientBootstrap(clientChannelFactory) {
             @Override
             public ChannelFuture connect(final SocketAddress localAddress, final SocketAddress remoteAddress) {
                 final InetSocketAddress localChannelAddress = toInetSocketAddress((ChannelAddress) localAddress);
@@ -116,6 +130,7 @@ public final class TcpBootstrapFactorySpi extends BootstrapFactorySpi implements
                 return super.connect(localChannelAddress, remoteChannelAddress);
             }
         };
+        return bootstrap;
     }
 
     /**
@@ -164,4 +179,21 @@ public final class TcpBootstrapFactorySpi extends BootstrapFactorySpi implements
         int port = location.getPort();
         return new InetSocketAddress(hostname, port);
     }
+
+    private static final class SetCurrentWorkerTask implements Callable<NioWorker> {
+
+        private final NioWorker worker;
+
+        public SetCurrentWorkerTask(NioWorker worker) {
+            this.worker = worker;
+        }
+
+        @Override
+        public NioWorker call() throws Exception {
+            CURRENT_WORKER.set(worker);
+            return worker;
+        }
+
+    };
+
 }

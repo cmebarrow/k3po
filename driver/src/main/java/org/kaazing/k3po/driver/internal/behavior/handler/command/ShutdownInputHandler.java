@@ -23,7 +23,7 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 public class ShutdownInputHandler extends AbstractCommandHandler {
 
     @Override
-    protected void invokeCommand(ChannelHandlerContext ctx) {
+    protected void invokeCommand0(ChannelHandlerContext ctx) {
         shutdownInput(ctx, getHandlerFuture());
         getHandlerFuture().setSuccess();
     }

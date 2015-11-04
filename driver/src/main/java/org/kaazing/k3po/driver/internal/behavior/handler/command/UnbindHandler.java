@@ -23,7 +23,7 @@ import org.jboss.netty.channel.Channels;
 public class UnbindHandler extends AbstractCommandHandler {
 
     @Override
-    protected void invokeCommand(ChannelHandlerContext ctx) throws Exception {
+    protected void invokeCommand0(ChannelHandlerContext ctx) throws Exception {
 
         ChannelFuture handlerFuture = getHandlerFuture();
         Channels.unbind(ctx, handlerFuture);

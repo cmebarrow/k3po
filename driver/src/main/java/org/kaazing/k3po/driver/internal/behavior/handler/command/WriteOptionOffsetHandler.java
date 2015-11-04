@@ -31,7 +31,7 @@ public class WriteOptionOffsetHandler extends AbstractCommandHandler {
     }
 
     @Override
-    protected void invokeCommand(ChannelHandlerContext ctx) throws Exception {
+    protected void invokeCommand0(ChannelHandlerContext ctx) throws Exception {
         FileChannel channel = (FileChannel) ctx.getChannel();
 
         if (LOGGER.isDebugEnabled()) {

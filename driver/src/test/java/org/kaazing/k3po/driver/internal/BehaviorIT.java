@@ -106,7 +106,6 @@ public class BehaviorIT {
 
     @TestSpecification("closed.vs.disconnected.issue")
     @Test
-    @Ignore("k3po issue #222")
     public void closeVsDisconnectedIssue() throws Exception {
         k3po.finish();
     }

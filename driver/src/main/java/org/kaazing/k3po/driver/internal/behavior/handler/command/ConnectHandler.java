@@ -31,7 +31,7 @@ public class ConnectHandler extends AbstractCommandHandler {
     }
 
     @Override
-    protected void invokeCommand(ChannelHandlerContext ctx) throws Exception {
+    protected void invokeCommand0(ChannelHandlerContext ctx) throws Exception {
 
         ChannelFuture handlerFuture = getHandlerFuture();
         Channels.connect(ctx, handlerFuture, remoteAddress);

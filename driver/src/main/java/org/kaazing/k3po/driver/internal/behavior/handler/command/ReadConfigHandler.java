@@ -47,6 +47,7 @@ public class ReadConfigHandler extends AbstractCommandHandler {
     }
 
     public ReadConfigHandler(List<ConfigDecoder> decoders) {
+        super(true);
         requireNonNull(decoders, "decoders");
         if (decoders.size() == 0) {
             throw new IllegalArgumentException("must have at least one decoder");
@@ -65,7 +66,7 @@ public class ReadConfigHandler extends AbstractCommandHandler {
     }
 
     @Override
-    protected void invokeCommand(final ChannelHandlerContext ctx) throws Exception {
+    protected void invokeCommand0(final ChannelHandlerContext ctx) throws Exception {
         Channel channel = ctx.getChannel();
 
         if (channel.isReadable()) {

@@ -43,7 +43,7 @@ public class WriteConfigHandler extends AbstractCommandHandler {
     }
 
     @Override
-    protected void invokeCommand(ChannelHandlerContext ctx) throws Exception {
+    protected void invokeCommand0(ChannelHandlerContext ctx) throws Exception {
         try {
             Channel channel = ctx.getChannel();
             for (ConfigEncoder encoder : encoders) {

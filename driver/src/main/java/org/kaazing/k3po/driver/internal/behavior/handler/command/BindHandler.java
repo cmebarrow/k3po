@@ -32,7 +32,7 @@ public class BindHandler extends AbstractCommandHandler {
     }
 
     @Override
-    protected void invokeCommand(ChannelHandlerContext ctx) throws Exception {
+    protected void invokeCommand0(ChannelHandlerContext ctx) throws Exception {
         ChannelFuture handlerFuture = getHandlerFuture();
         bind(ctx, handlerFuture, localAddress);
     }

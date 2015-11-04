@@ -24,7 +24,7 @@ import org.jboss.netty.channel.ChannelHandlerContext;
 public class FlushHandler extends AbstractCommandHandler {
 
     @Override
-    protected void invokeCommand(ChannelHandlerContext ctx) throws Exception {
+    protected void invokeCommand0(ChannelHandlerContext ctx) throws Exception {
 
         ChannelFuture handlerFuture = getHandlerFuture();
         flush(ctx, handlerFuture);
