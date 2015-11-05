@@ -220,6 +220,13 @@ public class HttpIT {
 
     @Test
     @TestSpecification({
+        "server.closes.abruptly.client.closed" })
+    public void shouldNotHangWithClosedInClientScript() throws Exception {
+        k3po.finish();
+    }
+
+    @Test
+    @TestSpecification({
         "specify.only.part.of.http.response/request",
         "specify.only.part.of.http.response/response" })
     public void specifyOnlyPartOfHttpResponse() throws Exception {
