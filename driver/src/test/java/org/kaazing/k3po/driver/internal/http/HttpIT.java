@@ -19,6 +19,7 @@ package org.kaazing.k3po.driver.internal.http;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -219,9 +220,10 @@ public class HttpIT {
     }
 
     @Test
+    @Ignore("kepo#256")
     @TestSpecification({
         "server.closes.abruptly.client.closed" })
-    public void shouldNotHangWithClosedInClientScript() throws Exception {
+    public void closedShouldWorkOrBeRejected() throws Exception {
         k3po.finish();
     }
 
