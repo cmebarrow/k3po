@@ -34,7 +34,7 @@ public abstract class AbstractCommandHandler extends ExecutionHandler implements
     private boolean synchronous;
 
     AbstractCommandHandler() {
-        this(false);
+        this(true);
     }
 
     AbstractCommandHandler(boolean synchronous) {

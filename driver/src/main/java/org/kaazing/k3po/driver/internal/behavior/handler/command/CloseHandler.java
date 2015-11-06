@@ -22,6 +22,10 @@ import org.jboss.netty.channel.Channels;
 
 public class CloseHandler extends AbstractCommandHandler {
 
+    public CloseHandler() {
+        super(false);
+    }
+
     @Override
     protected void invokeCommand0(ChannelHandlerContext ctx) throws Exception {
 

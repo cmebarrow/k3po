@@ -47,7 +47,7 @@ public class ReadConfigHandler extends AbstractCommandHandler {
     }
 
     public ReadConfigHandler(List<ConfigDecoder> decoders) {
-        super(true);
+        super();
         requireNonNull(decoders, "decoders");
         if (decoders.size() == 0) {
             throw new IllegalArgumentException("must have at least one decoder");
