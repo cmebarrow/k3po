@@ -50,7 +50,6 @@ import org.jboss.netty.channel.group.ChannelGroupFutureListener;
 import org.jboss.netty.channel.group.DefaultChannelGroup;
 import org.jboss.netty.channel.local.DefaultLocalClientChannelFactory;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
 import org.kaazing.k3po.driver.internal.behavior.Barrier;
 import org.kaazing.k3po.driver.internal.behavior.Configuration;
 import org.kaazing.k3po.driver.internal.behavior.ScriptProgress;
@@ -59,6 +58,7 @@ import org.kaazing.k3po.driver.internal.behavior.handler.CompletionHandler;
 import org.kaazing.k3po.driver.internal.behavior.parser.Parser;
 import org.kaazing.k3po.driver.internal.behavior.parser.ScriptValidator;
 import org.kaazing.k3po.driver.internal.behavior.visitor.GenerateConfigurationVisitor;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.BootstrapFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.ClientBootstrap;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.ServerBootstrap;
@@ -72,7 +72,7 @@ import org.kaazing.k3po.lang.internal.parser.ScriptParser;
 
 public class Robot {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(Robot.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(Robot.class);
 
     private final List<ChannelFuture> bindFutures = new ArrayList<>();
     private final List<ChannelFuture> connectFutures = new ArrayList<>();
@@ -507,6 +507,7 @@ public class Robot {
                     // detect observed script
                     String observedScript = progress.getObservedScript();
                     LOGGER.debug("Observed script:\n" + observedScript);
+                    LoggerFactory.finish(future);
                 }
 
                 if (abortedFuture.isDone()) {

@@ -23,8 +23,8 @@ import java.nio.charset.Charset;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
 import org.kaazing.k3po.driver.internal.behavior.ScriptProgressException;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.lang.internal.RegionInfo;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
 import org.kaazing.k3po.lang.internal.regex.NamedGroupMatcher;
@@ -32,7 +32,7 @@ import org.kaazing.k3po.lang.internal.regex.NamedGroupPattern;
 
 public class ReadRegexDecoder extends MessageDecoder {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(ReadRegexDecoder.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(ReadRegexDecoder.class);
 
     private final NamedGroupPattern pattern;
     private final Charset charset;

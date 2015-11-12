@@ -16,6 +16,8 @@
 
 package org.kaazing.k3po.driver.internal.netty.bootstrap.file;
 
+import static org.jboss.netty.channel.Channels.fireChannelBound;
+
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelPipeline;
@@ -23,15 +25,13 @@ import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.channel.AbstractChannelSink;
 import org.kaazing.k3po.driver.internal.netty.channel.ChannelAddress;
 
-import static org.jboss.netty.channel.Channels.fireChannelBound;
-
 public class FileChannelSink extends AbstractChannelSink {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(FileChannelSink.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(FileChannelSink.class);
 
     @Override
     protected void connectRequested(ChannelPipeline pipeline, ChannelStateEvent evt) throws Exception {

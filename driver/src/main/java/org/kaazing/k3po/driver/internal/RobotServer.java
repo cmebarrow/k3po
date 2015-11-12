@@ -46,10 +46,10 @@ import org.jboss.netty.channel.socket.nio.NioWorkerPool;
 import org.jboss.netty.channel.socket.nio.ShareableWorkerPool;
 import org.jboss.netty.handler.logging.LoggingHandler;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
 import org.kaazing.k3po.driver.internal.control.handler.ControlDecoder;
 import org.kaazing.k3po.driver.internal.control.handler.ControlEncoder;
 import org.kaazing.k3po.driver.internal.control.handler.ControlServerHandler;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.BootstrapFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.ServerBootstrap;
 import org.kaazing.k3po.driver.internal.netty.channel.ChannelAddress;
@@ -59,7 +59,7 @@ public class RobotServer {
 
     private final ChannelGroup channelGroup;
     private final List<ControlServerHandler> controlHandlers;
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(RobotServer.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(RobotServer.class);
 
     private BootstrapFactory bootstrapFactory;
     private final URI controlURI;

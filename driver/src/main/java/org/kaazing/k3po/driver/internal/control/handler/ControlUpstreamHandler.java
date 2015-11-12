@@ -21,12 +21,12 @@ import org.jboss.netty.channel.ExceptionEvent;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.channel.SimpleChannelUpstreamHandler;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
 import org.kaazing.k3po.driver.internal.control.ControlMessage;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 
 public class ControlUpstreamHandler extends SimpleChannelUpstreamHandler {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(ControlUpstreamHandler.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(ControlUpstreamHandler.class);
 
     @Override
     public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) throws Exception {

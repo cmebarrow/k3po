@@ -20,7 +20,7 @@ import static java.lang.String.format;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.lang.internal.RegionInfo;
 import org.kaazing.k3po.lang.internal.ast.value.AstLiteralBytesValue;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
@@ -28,7 +28,7 @@ import org.kaazing.k3po.lang.internal.parser.ScriptParseException;
 
 public abstract class ReadFixedLengthBytesDecoder<T> extends MessageDecoder {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(ReadFixedLengthBytesDecoder.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(ReadFixedLengthBytesDecoder.class);
 
     private final int length;
     private final ExpressionContext environment;

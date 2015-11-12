@@ -22,11 +22,11 @@ import org.jboss.netty.channel.ChannelFuture;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.ChannelStateEvent;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 
 public class DisconnectedHandler extends AbstractEventHandler {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(DisconnectedHandler.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(DisconnectedHandler.class);
 
     public DisconnectedHandler() {
         super(of(ChannelEventKind.DISCONNECTED));

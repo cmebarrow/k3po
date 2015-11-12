@@ -24,8 +24,8 @@ import javax.el.ValueExpression;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
 import org.kaazing.k3po.driver.internal.behavior.ScriptProgressException;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.driver.internal.util.Utils;
 import org.kaazing.k3po.lang.internal.RegionInfo;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
@@ -34,7 +34,7 @@ public class ReadExpressionDecoder extends MessageDecoder {
 
     private final ValueExpression expression;
     private final ExpressionContext environment;
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(ReadExpressionDecoder.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(ReadExpressionDecoder.class);
 
     public ReadExpressionDecoder(RegionInfo regionInfo, ValueExpression expression, ExpressionContext environment) {
         super(regionInfo);

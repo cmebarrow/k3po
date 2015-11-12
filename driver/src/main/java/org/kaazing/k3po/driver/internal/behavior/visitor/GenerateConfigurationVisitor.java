@@ -39,7 +39,6 @@ import org.jboss.netty.channel.ChannelHandler;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
 import org.kaazing.k3po.driver.internal.RobotException;
 import org.kaazing.k3po.driver.internal.behavior.Barrier;
 import org.kaazing.k3po.driver.internal.behavior.Configuration;
@@ -100,6 +99,7 @@ import org.kaazing.k3po.driver.internal.behavior.handler.event.OpenedHandler;
 import org.kaazing.k3po.driver.internal.behavior.handler.event.ReadHandler;
 import org.kaazing.k3po.driver.internal.behavior.handler.event.UnboundHandler;
 import org.kaazing.k3po.driver.internal.behavior.visitor.GenerateConfigurationVisitor.State;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.BootstrapFactory;
 import org.kaazing.k3po.driver.internal.netty.channel.ChannelAddressFactory;
 import org.kaazing.k3po.driver.internal.resolver.ClientBootstrapResolver;
@@ -161,7 +161,7 @@ import org.kaazing.k3po.lang.internal.el.ExpressionContext;
  */
 public class GenerateConfigurationVisitor implements AstNode.Visitor<Configuration, State> {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(GenerateConfigurationVisitor.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(GenerateConfigurationVisitor.class);
 
     private final ChannelAddressFactory addressFactory;
     private final BootstrapFactory bootstrapFactory;
@@ -949,7 +949,7 @@ public class GenerateConfigurationVisitor implements AstNode.Visitor<Configurati
     public Configuration visit(AstWriteConfigNode node, State state) throws Exception {
         switch (node.getType()) {
         case "request": {
-            AstValue form = (AstLiteralTextValue) node.getValue("form");
+            AstValue form = node.getValue("form");
             MessageEncoder formEncoder = form.accept(new GenerateWriteEncoderVisitor(), state.configuration);
 
             WriteConfigHandler handler = new WriteConfigHandler(new HttpRequestFormEncoder(formEncoder));

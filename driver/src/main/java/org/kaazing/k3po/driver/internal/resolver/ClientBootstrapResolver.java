@@ -21,8 +21,8 @@ import java.util.Map;
 
 import org.jboss.netty.channel.ChannelPipelineFactory;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
 import org.kaazing.k3po.driver.internal.behavior.Barrier;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.BootstrapFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.ClientBootstrap;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.ServerBootstrap;
@@ -35,7 +35,7 @@ import org.kaazing.k3po.lang.internal.RegionInfo;
  */
 public class ClientBootstrapResolver {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(ClientBootstrapResolver.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(ClientBootstrapResolver.class);
 
     private final BootstrapFactory bootstrapFactory;
     private final ChannelAddressFactory addressFactory;

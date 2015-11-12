@@ -20,12 +20,12 @@ import org.jboss.netty.channel.ChannelEvent;
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.channel.MessageEvent;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.file.FileChannel;
 
 public class ReadOptionOffsetHandler extends AbstractCommandHandler {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(ReadOptionOffsetHandler.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(ReadOptionOffsetHandler.class);
     private final int offset;
 
     public ReadOptionOffsetHandler(int offset) {

@@ -18,12 +18,12 @@ package org.kaazing.k3po.driver.internal.behavior.handler.command;
 
 import org.jboss.netty.channel.ChannelHandlerContext;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.file.FileChannel;
 
 public class WriteOptionOffsetHandler extends AbstractCommandHandler {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(WriteOptionOffsetHandler.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(WriteOptionOffsetHandler.class);
     private final int offset;
 
     public WriteOptionOffsetHandler(int offset) {

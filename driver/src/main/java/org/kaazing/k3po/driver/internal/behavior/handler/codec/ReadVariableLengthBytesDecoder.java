@@ -23,14 +23,14 @@ import javax.el.ValueExpression;
 
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.jboss.netty.logging.InternalLogger;
-import org.jboss.netty.logging.InternalLoggerFactory;
+import org.kaazing.k3po.driver.internal.logging.LoggerFactory;
 import org.kaazing.k3po.lang.internal.RegionInfo;
 import org.kaazing.k3po.lang.internal.ast.value.AstLiteralBytesValue;
 import org.kaazing.k3po.lang.internal.el.ExpressionContext;
 
 public class ReadVariableLengthBytesDecoder extends MessageDecoder {
 
-    private static final InternalLogger LOGGER = InternalLoggerFactory.getInstance(ReadVariableLengthBytesDecoder.class);
+    private static final InternalLogger LOGGER = LoggerFactory.getInstance(ReadVariableLengthBytesDecoder.class);
 
     private final ValueExpression length;
     private final ExpressionContext environment;
