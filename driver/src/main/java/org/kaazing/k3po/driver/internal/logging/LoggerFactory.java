@@ -30,7 +30,7 @@ import org.jboss.netty.logging.InternalLoggerFactory;
  * to print out log messages only in the case of test failures, which is useful to avoid swamping the
  * build output with unneeded debug messages.
  */
-public class LoggerFactory {
+public final class LoggerFactory {
 
     private static Queue<Runnable> messages = new LinkedBlockingQueue<Runnable>();
 
@@ -46,11 +46,16 @@ public class LoggerFactory {
 
     public static void finish(final ChannelFuture future) {
         if (future.getCause() != null) {
-            messages.forEach(m -> m.run());
+            // LATER, once we move to checkstyle 2.17 which supports jdk 1.8 syntax:
+            // messages.forEach(m -> m.run());
+            for (Runnable m : messages) {
+                m.run();
+            }
         }
         messages.clear();
     }
 
-
+    private LoggerFactory() {
+        // prevent instantiation
+    };
 }
-

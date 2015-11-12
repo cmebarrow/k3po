@@ -26,33 +26,75 @@ class BufferedLogger extends AbstractInternalLogger {
     private final InternalLogger logger;
     private final Queue<Runnable> messages;
 
-    public BufferedLogger(InternalLogger logger, Queue<Runnable> messages) {
+    BufferedLogger(InternalLogger logger, Queue<Runnable> messages) {
         this.logger = logger;
         this.messages = messages;
     }
 
     public void debug(String msg) {
-        messages.add(() -> logger.debug(msg));
+        // LATER, once we move to checkstyle 2.17 which supports jdk 1.8 syntax:
+        // messages.add(() -> logger.debug(msg));
+        messages.add(new Runnable() {
+            @Override
+            public void run() {
+                logger.debug(msg);
+            }
+        });
     }
 
     public void debug(String msg, Throwable cause) {
-        messages.add(() -> logger.debug(msg, cause));
+        // LATER, once we move to checkstyle 2.17 which supports jdk 1.8 syntax:
+        // messages.add(() -> logger.debug(msg, cause));
+        messages.add(new Runnable() {
+            @Override
+            public void run() {
+                logger.debug(msg);
+            }
+        });
     }
 
     public void error(String msg) {
-        messages.add(() -> logger.error(msg));
+        // LATER, once we move to checkstyle 2.17 which supports jdk 1.8 syntax:
+        // messages.add(() -> logger.error(msg));
+        messages.add(new Runnable() {
+            @Override
+            public void run() {
+                logger.debug(msg);
+            }
+        });
     }
 
     public void error(String msg, Throwable cause) {
-        messages.add(() -> logger.error(msg, cause));
+        // LATER, once we move to checkstyle 2.17 which supports jdk 1.8 syntax:
+        // messages.add(() -> logger.error(msg, cause));
+        messages.add(new Runnable() {
+            @Override
+            public void run() {
+                logger.debug(msg);
+            }
+        });
     }
 
     public void info(String msg) {
-        messages.add(() -> logger.info(msg));
+        // LATER, once we move to checkstyle 2.17 which supports jdk 1.8 syntax:
+        // messages.add(() -> logger.info(msg));
+        messages.add(new Runnable() {
+            @Override
+            public void run() {
+                logger.debug(msg);
+            }
+        });
     }
 
     public void info(String msg, Throwable cause) {
-        messages.add(() -> logger.info(msg, cause));
+        // LATER, once we move to checkstyle 2.17 which supports jdk 1.8 syntax:
+        // messages.add(() -> logger.info(msg, cause));
+        messages.add(new Runnable() {
+            @Override
+            public void run() {
+                logger.debug(msg);
+            }
+        });
     }
 
     public boolean isDebugEnabled() {
@@ -72,10 +114,24 @@ class BufferedLogger extends AbstractInternalLogger {
     }
 
     public void warn(String msg) {
-        messages.add(() -> logger.warn(msg));
+        // LATER, once we move to checkstyle 2.17 which supports jdk 1.8 syntax:
+        // messages.add(() -> logger.warn(msg));
+        messages.add(new Runnable() {
+            @Override
+            public void run() {
+                logger.debug(msg);
+            }
+        });
     }
 
     public void warn(String msg, Throwable cause) {
-        messages.add(() -> logger.warn(msg, cause));
+        // LATER, once we move to checkstyle 2.17 which supports jdk 1.8 syntax:
+        // messages.add(() -> logger.warn(msg, cause));
+        messages.add(new Runnable() {
+            @Override
+            public void run() {
+                logger.debug(msg);
+            }
+        });
     }
 }
