@@ -50,6 +50,14 @@ public class TypeConverterImpl extends de.odysseus.el.misc.TypeConverterImpl {
         if (type == String.class) {
             return (T) new String(value, UTF_8);
         }
+        else if (type == Long.class)
+        {
+            if (value.length == 8)
+            {
+                T result = (T) Long.valueOf(ByteBuffer.wrap(value).getLong());
+                return result;
+            }
+        }
 
         return super.convert(value, type);
     }
