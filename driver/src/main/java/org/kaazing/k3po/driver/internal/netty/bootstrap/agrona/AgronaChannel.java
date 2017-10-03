@@ -28,6 +28,7 @@ import org.jboss.netty.channel.ChannelFactory;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.ChannelSink;
 import org.kaazing.k3po.driver.internal.netty.bootstrap.channel.AbstractChannel;
+import org.kaazing.k3po.driver.internal.netty.bootstrap.channel.DefaultChannelConfig;
 import org.kaazing.k3po.driver.internal.netty.channel.ChannelAddress;
 import org.kaazing.k3po.driver.internal.netty.channel.agrona.AgronaChannelAddress;
 
@@ -53,13 +54,14 @@ public abstract class AgronaChannel extends AbstractChannel<AgronaChannelConfig>
 
     };
 
-    final ChannelBuffer writeBuffer = dynamicBuffer(8192);
+    final ChannelBuffer writeBuffer;
 
     AgronaChannel(AgronaServerChannel parent, ChannelFactory factory,
             ChannelPipeline pipeline, ChannelSink sink, AgronaWorker worker) {
         super(parent, factory, pipeline, sink, new DefaultAgronaChannelConfig());
 
         this.worker = worker;
+        writeBuffer = dynamicBuffer(DefaultChannelConfig.getEndian(getConfig()), 8192);
     }
 
     @Override
