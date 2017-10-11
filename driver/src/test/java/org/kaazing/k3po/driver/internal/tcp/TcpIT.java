@@ -45,10 +45,9 @@ public class TcpIT {
     @Rule
     public final TestRule chain = outerRule(failureTrace).around(k3po).around(timeout);
 
-    @TestSpecification("client.close.notify.closed")
-    @Test // Test case for k2po#222
-    @Ignore("k3po#222")
-    public void clientCloseNotifyClosed() throws Exception {
+    @TestSpecification("write.and.read.integers.big.endian")
+    @Test
+    public void shouldReadAndWriteIntegersInNetworkByteOrder() throws Exception {
         k3po.finish();
     }
 
