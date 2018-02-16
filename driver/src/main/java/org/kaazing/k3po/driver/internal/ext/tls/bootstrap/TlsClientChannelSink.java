@@ -29,6 +29,7 @@ import static org.kaazing.k3po.driver.internal.channel.Channels.chainWriteComple
 import static org.kaazing.k3po.driver.internal.netty.channel.Channels.abortInputOrSuccess;
 import static org.kaazing.k3po.driver.internal.netty.channel.Channels.abortOutputOrClose;
 import static org.kaazing.k3po.driver.internal.netty.channel.Channels.fireInputShutdown;
+import static org.kaazing.k3po.driver.internal.netty.channel.Channels.shutdownOutputOrClose;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -304,14 +305,16 @@ public class TlsClientChannelSink extends AbstractChannelSink {
         }
         else
         {
-            tlsClientChannel.setReadClosed();
             shutdownOutputRequested(tlsClientChannel, tlsFuture);
         }
     }
 
     private void shutdownOutputRequested(TlsClientChannel tlsClientChannel, ChannelFuture tlsFuture) {
         SslHandler tlsHandler = transport.getPipeline().get(SslHandler.class);
-        if (tlsHandler != null) {
+        if (tlsClientChannel.isReadClosed()) {
+            chainFutures(shutdownOutputOrClose(transport), tlsFuture);
+        }
+        else if (tlsHandler != null) {
             ChannelFuture tlsCloseFuture = tlsHandler.close();
             tlsCloseFuture.addListener(new ChannelFutureListener() {
                 @Override
@@ -321,6 +324,12 @@ public class TlsClientChannelSink extends AbstractChannelSink {
                         fireChannelUnbound(tlsClientChannel);
                         fireChannelClosed(tlsClientChannel);
                     }
+                }
+            });
+            tlsHandler.getSSLEngineInboundCloseFuture().addListener(new ChannelFutureListener() {
+                @Override
+                public void operationComplete(ChannelFuture future) throws Exception {
+                    shutdownOutputOrClose(transport);
                 }
             });
             chainFutures(tlsCloseFuture, tlsFuture);
